@@ -1,8 +1,9 @@
 import React from "react";
-import Chart from "chart.js/auto";
 import { Line } from "react-chartjs-2";
+import Chart from "chart.js/auto";
 
-const labels = ["January", "February", "March", "April", "May", "June"];
+
+const labels = ["January", "February", "March", "April", "May", "June", "July" , "August" , "September" , "October" , "November" , "December"];
 
 const data = {
   labels: labels,
@@ -11,7 +12,7 @@ const data = {
       label: "My First dataset",
       backgroundColor: "rgb(255, 99, 132)",
       borderColor: "rgb(255, 99, 132)",
-      data: [0, 10, 5, 2, 20, 30, 45],
+      data: [0, 10, 5, 2, 20, 30, 45, 50, 60, 70, 80, 90],
     },
   ],
 };
@@ -45,7 +46,7 @@ const Dashboard = () => {
     Tea chart
   </div>
   <Line data={data} />
-</div>
+</div> 
         </div>
 
 
