@@ -1,7 +1,21 @@
-import React from "react";
+import { useState, useEffect } from 'react';
 import DairyFarming from "./DairyFarming";
 
 function DairyTable() {
+
+  const [dairy, setDairy] = useState([]);
+
+  useEffect(() => {
+    fetch('http://localhost:9292/')
+      .then((res) => res.json())
+      .then((data) => {
+        setDairy(data);
+        console.log(data);
+      });
+  }, []);
+
+
+
     return (
       <>
       <DairyFarming/>
@@ -51,94 +65,40 @@ function DairyTable() {
             </tr>
           </thead>
           <tbody>
-            <tr class="border-b dark:border-neutral-500">
+            {dairy.map((dairy) => (
+              <tr class="border-b dark:border-neutral-500">
                 <td class="px-6 py-4 dark:border-neutral-500">
-                <img
-                    class="h-10 w-10 rounded-full"
-                    ></img>
+                  <img
+                    class="h-12 w-12 rounded-full"
+                    src={dairy.animal_image}
+                    alt="Cow Image"
+                  ></img>
+
                 </td>
                 <td class="px-6 py-4 dark:border-neutral-500">
-                <span class="text-gray-700 dark:text-gray-400">Cow 1</span>
+                  <span class="text-gray-700 dark:text-gray-400">
+                    {dairy.animal_name}
+                  </span>
                 </td>
                 <td class="px-6 py-4 dark:border-neutral-500">
-                <span class="text-gray-700 dark:text-gray-400">Jersey</span>
+                  <span class="text-gray-700 dark:text-gray-400">
+                    {dairy.animal_type}
+                  </span>
                 </td>
                 <td class="px-6 py-4 dark:border-neutral-500">
-                <span class="text-gray-700 dark:text-gray-400">Good</span>
+                  <span class="text-gray-700 dark:text-gray-400">
+                    {dairy.animal_health}
+                  </span>
                 </td>
                 <td class="px-6 py-4 dark:border-neutral-500">
-                <span class="text-gray-700 dark:text-gray-400">2</span>
+                  <span class="text-gray-700 dark:text-gray-400">
+                    {dairy.animal_age}
+                  </span>
                 </td>
-                <td class="px-6 py-4 dark:border-neutral-500">
-                <span class="text-gray-700 dark:text-gray-400">10</span>
-                </td>
-            </tr>
-            <tr class="border-b dark:border-neutral-500">
-                <td class="px-6 py-4 dark:border-neutral-500">
-                <img
-                    class="h-10 w-10 rounded-full"
-                    ></img>
-                </td>
-                <td class="px-6 py-4 dark:border-neutral-500">
-                <span class="text-gray-700 dark:text-gray-400">Cow 2</span>
-                </td>
-                <td class="px-6 py-4 dark:border-neutral-500">
-                <span class="text-gray-700 dark:text-gray-400">Jersey</span>
-                </td>
-                <td class="px-6 py-4 dark:border-neutral-500">
-                <span class="text-gray-700 dark:text-gray-400">Good</span>
-                </td>
-                <td class="px-6 py-4 dark:border-neutral-500">
-                <span class="text-gray-700 dark:text-gray-400">2</span>
-                </td>
-                <td class="px-6 py-4 dark:border-neutral-500">
-                <span class="text-gray-700 dark:text-gray-400">10</span>
-                </td>
-            </tr>
-            <tr class="border-b dark:border-neutral-500">
-                <td class="px-6 py-4 dark:border-neutral-500">
-                <img
-                    class="h-10 w-10 rounded-full"
-                    ></img>
-                </td>
-                <td class="px-6 py-4 dark:border-neutral-500">
-                <span class="text-gray-700 dark:text-gray-400">Cow 3</span>
-                </td>
-                <td class="px-6 py-4 dark:border-neutral-500">
-                <span class="text-gray-700 dark:text-gray-400">Jersey</span>
-                </td>
-                <td class="px-6 py-4 dark:border-neutral-500">
-                <span class="text-gray-700 dark:text-gray-400">Good</span>
-                </td>
-                <td class="px-6 py-4 dark:border-neutral-500">
-                <span class="text-gray-700 dark:text-gray-400">2</span>
-                </td>
-                <td class="px-6 py-4 dark:border-neutral-500">
-                <span class="text-gray-700 dark:text-gray-400">10</span>
-                </td>
-            </tr>
-            <tr class="border-b dark:border-neutral-500">
-                <td class="px-6 py-4 dark:border-neutral-500">
-                <img
-                    class="h-10 w-10 rounded-full"
-                    ></img>
-                </td>
-                <td class="px-6 py-4 dark:border-neutral-500">
-                <span class="text-gray-700 dark:text-gray-400">Cow 4</span>
-                </td>
-                <td class="px-6 py-4 dark:border-neutral-500">
-                <span class="text-gray-700 dark:text-gray-400">Jersey</span>
-                </td>
-                <td class="px-6 py-4 dark:border-neutral-500">
-                <span class="text-gray-700 dark:text-gray-400">Good</span>
-                </td>
-                <td class="px-6 py-4 dark:border-neutral-500">
-                <span class="text-gray-700 dark:text-gray-400">2</span>
-                </td>
-                <td class="px-6 py-4 dark:border-neutral-500">
-                <span class="text-gray-700 dark:text-gray-400">10</span>
-                </td>
-            </tr>
+              
+              </tr>
+            ))
+              }
           </tbody>
         </table>
       </div>
