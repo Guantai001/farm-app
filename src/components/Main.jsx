@@ -1,6 +1,6 @@
 import React from "react";
 import { Routes, Route } from "react-router-dom";
-import Dashboard from "./Dashboard";
+import Dashboard from "./dashboard/Dashboard";
 import Settings from "./Settings";
 import InputTea from "./Tea/InputTea";
 import InputDairy from "./Dairy/InputDairy";
