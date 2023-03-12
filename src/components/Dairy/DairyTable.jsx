@@ -1,20 +1,82 @@
-import { useState, useEffect } from 'react';
+import React, { useState } from "react";
 import DairyFarming from "./DairyFarming";
-
-function DairyTable() {
-
-  const [dairy, setDairy] = useState([]);
-
-  useEffect(() => {
-    fetch('http://localhost:9292/')
-      .then((res) => res.json())
-      .then((data) => {
-        setDairy(data);
-        console.log(data);
-      });
-  }, []);
+import Swal from 'sweetalert2';
+import DatePicker from 'react-date-picker';
 
 
+
+
+function DairyTable({ dairy, setDairy}) {
+
+    const successAlert = () => {
+        Swal.fire({
+            position: 'center',
+            icon: 'success',
+            title: 'Your Data has been added',
+            showConfirmButton: false,
+            timer: 1500
+        })
+
+    }
+
+    // const [date , setDate] = useState("");
+    const [kg , setKg] = useState("");
+    const [selectedAnimalId, setSelectedAnimalId] = React.useState(dairy.animal_id);
+    const [date, onChange] = useState(new Date());
+
+
+    function handleSelectChange(event) {
+      setSelectedAnimalId(event.target.value);
+    }
+
+    // const inputDateHandler = (e) => {
+    //     setDate(e.target.value);
+    // };
+
+    const inputKgHandler = (e) => {
+        setKg(e.target.value);
+    };
+
+    const submitHandler = (e) => {
+        e.preventDefault();
+
+        if (date === "" || kg === "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please fill all the fields!',
+            })
+
+            return;
+        }
+
+        const datat = {
+            milk_date: date,
+            milk_kgs: kg,
+            animal_id: selectedAnimalId
+        }
+
+        fetch('http://localhost:9292/milk/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify( 
+              datat
+            )
+            
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data);
+            successAlert();
+
+        })
+        console.log(datat);
+    }
+   
+
+    
 
     return (
       <>
@@ -68,12 +130,7 @@ function DairyTable() {
             {dairy.map((dairy) => (
               <tr class="border-b dark:border-neutral-500">
                 <td class="px-6 py-4 dark:border-neutral-500">
-                  <img
-                    class="h-12 w-12 rounded-full"
-                    src={dairy.animal_image}
-                    alt="Cow Image"
-                  ></img>
-
+                  <img class="h-12 w-12 rounded-full" src={dairy.animal_image} alt="Cow Image"  ></img>
                 </td>
                 <td class="px-6 py-4 dark:border-neutral-500">
                   <span class="text-gray-700 dark:text-gray-400">
@@ -95,7 +152,6 @@ function DairyTable() {
                     {dairy.animal_age}
                   </span>
                 </td>
-              
               </tr>
             ))
               }
@@ -115,32 +171,61 @@ function DairyTable() {
     </h1>
     <div class="flex  p-8 justify-center">
 
-    <form class="w-full max-w-lg items-center">
-       
+    <form 
+    onSubmit={submitHandler}
+    class="w-full max-w-lg items-center">
       <div >
         <div class="flex flex-row -mx-3 mb-6">
             <div class="w-full px-3 mb-6 md:mb-0">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                     Cow ID
                 </label>
-                <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Cow ID"></input>
+                <div class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white">
+                    <div class="">
+                      <select  value={selectedAnimalId} onChange={handleSelectChange}
+                     >
+                  <option value="" >-- Select --</option>
+                        { dairy.map((dairy) => (
+                          <option 
+                          key={dairy.animal_id} 
+                          value={
+                            dairy.id
+                          }>{dairy.animal_name}</option>
+                        ))}
+    
+                      </select>
+                    </div>
+                  </div>
+                {/* <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Cow ID"></input> */}
             </div>
             <div class="w-full  px-3">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                     Milk Per Day
                 </label>
                 <input 
+                value={kg}
+                onChange={inputKgHandler}
                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Milk Per Day"></input>
             </div>
             <div class="w-full  px-3">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                 Date
                 </label>
-                <input 
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Milk Per Day"></input>
+                <DatePicker
+                className= "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                 onChange={onChange} value={date} />
+
+                
+                {/* <input 
+                value={date}
+                onChange={inputDateHandler}
+                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Milk Per Day"></input> */}
             </div>
         </div>
-       <button class="inline-block rounded-full border-2 border-primary px-6 pt-2 pb-[6px] text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-primary-600 focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10 mt-2 mx-9">
+       <button 
+       type="submit"
+       disabled={!selectedAnimalId}
+       class="inline-block rounded-full border-2 border-primary px-6 pt-2 pb-[6px] text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-primary-600 focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10 mt-2 mx-9">
                     Submit
                 </button>
        </div>
