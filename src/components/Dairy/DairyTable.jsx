@@ -10,20 +10,9 @@ import moment from "moment";
 
 function DairyTable({ dairy, setDairy, milk, setMilk }) {
 
-    // const successAlert = () => {
-    //     Swal.fire({
-    //         position: 'center',
-    //         icon: 'success',
-    //         title: { milk},
-    //         showConfirmButton: false,
-    //         timer: 1500
-    //     })
-
-    // }
 
     const [kg , setKg] = useState("");
     const [selectedAnimalId, setSelectedAnimalId] = React.useState(dairy.animal_id);
-    // const [date, onChange] = useState(new Date());
     const [selectedDate, setSelectedDate] = useState(new Date());
     const [message, setMessage] = useState("");
 
@@ -247,9 +236,7 @@ function DairyTable({ dairy, setDairy, milk, setMilk }) {
                 // take the year, month and day from the date only not the time
                           
                 className= "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                
                  value={selectedDate} 
-                 
                  selected={selectedDate}
                  onChange={handleDateChange}
                  dateFormat="yyyy/MM/dd"

@@ -1,7 +1,153 @@
-import React from "react";
+import React, { useState } from "react";
 import DairyFarming from "./DairyFarming";
+import Swal from 'sweetalert2';
+import DatePicker from 'react-date-picker';
+import moment from "moment";
+
+
 
 function Produce({ cost, sell}) {
+
+
+    // cost 
+    const [costDate, setCostDate] = useState(new Date());
+    const [costName, setCostName] = useState("");
+    const [costAmount, setCostAmount] = useState("");
+
+
+    function handleCostDateChange(date) {
+        setCostDate(date);
+    }
+
+    const inputCostNameHandler = (e) => {
+        setCostName(e.target.value);
+    };
+
+    const inputCostAmountHandler = (e) => {
+        setCostAmount(e.target.value);
+    };
+
+    const submitCostHandler = (e) => {
+        e.preventDefault();
+
+        const dateWithoutTime = moment(costDate).startOf('day');
+        const formattedDate = dateWithoutTime.format("YYYY-MM-DD");
+        
+        if (costDate === "" || costName === "" || costAmount === "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please fill all the fields!',
+            })
+
+            return;
+        }
+
+        const dat = {
+            cost_date: formattedDate,
+            cost_item: costName,
+            cost_price: costAmount
+        }
+
+        fetch('http://localhost:9292/cost/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dat)
+        })
+        .then((res) => res.json())
+        .then((data) => {
+         console.log(data);
+         Swal.fire({
+            icon: 'success',
+            title: 'Success',
+            text: 'Cost added successfully!',
+         })
+        })
+        .catch((err) => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            })
+        })
+
+        setCostDate("");
+        setCostName("");
+        setCostAmount("");
+    }
+
+    // sell
+    const [sellDate, setSellDate] = useState(new Date());
+    const [sellName, setSellName] = useState("");
+    const [sellAmount, setSellAmount] = useState("");
+
+    function handleSellDateChange(date) {
+        setSellDate(date);
+    }
+
+    const inputSellNameHandler = (e) => {
+        setSellName(e.target.value);
+    };
+
+    const inputSellAmountHandler = (e) => {
+        setSellAmount(e.target.value);
+    };
+
+    const submitSellHandler = (e) => {
+        e.preventDefault();
+
+        const dateWithoutTime = moment(sellDate).startOf('day');
+        const formattedDate = dateWithoutTime.format("YYYY-MM-DD");
+
+        if (sellDate === "" || sellName === "" || sellAmount === "") {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Please fill all the fields!',
+            })
+
+            return;
+        }
+
+        const dat = {
+            sold_date: formattedDate,
+            sold_item: sellName,
+            sold_price: sellAmount
+        }
+
+        fetch('http://localhost:9292/sell/', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify(dat)
+        })
+        .then((res) => res.json())
+        .then((data) => {
+            console.log(data);
+            Swal.fire({
+                icon: 'success',
+                title: 'Success',
+                text: 'Sell added successfully!',
+            })
+        })
+        .catch((err) => {
+            Swal.fire({
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            })
+        })
+
+        setSellDate("");
+        setSellName("");
+        setSellAmount("");
+    }
+
+
+
 
     return (
         <>
@@ -236,7 +382,9 @@ function Produce({ cost, sell}) {
         Cost Used Per Month
     </h1>
     <div class="flex  p-8 justify-center">
-    <form class="w-full max-w-lg items-center">
+    <form 
+    onSubmit={submitCostHandler}
+    class="w-full max-w-lg items-center">
        
        <div >
          <div class="flex flex-row -mx-3 mb-6">
@@ -244,24 +392,37 @@ function Produce({ cost, sell}) {
                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                      Utility    
              </label>
-                 <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Utility"></input>
+                 <input 
+                   value={costName}
+                     onChange={inputCostNameHandler}
+                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="Utility"></input>
              </div>
              <div class="w-full  px-3">
                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                     Cost Used
                  </label>
                  <input 
+                    value={costAmount}
+                    onChange={inputCostAmountHandler}
                  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Cost used"></input>
              </div>
              <div class="w-full  px-3">
                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                  Date
                  </label>
-                 <input 
-                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Date"></input>
+                 <DatePicker
+                    selected={costDate}
+                    onChange={handleCostDateChange}
+                    dateFormat="dd/MM/yyyy"
+                    value={costDate}
+                className= "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+          
+                 />
              </div>
          </div>
-        <button class="inline-block rounded-full border-2 border-primary px-6 pt-2 pb-[6px] text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-primary-600 focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10 mt-2 mx-9">
+        <button
+                    type="submit"
+         class="inline-block rounded-full border-2 border-primary px-6 pt-2 pb-[6px] text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-primary-600 focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10 mt-2 mx-9">
                      Submit
                  </button>
         </div>
@@ -277,29 +438,44 @@ function Produce({ cost, sell}) {
         Sells Per Month
     </h1>
     <div class="flex  p-8 justify-center">
-    <form class="w-full max-w-lg items-center">
+    <form
+    onSubmit={submitSellHandler}
+    class="w-full max-w-lg items-center">
        
        <div >
          <div class="flex flex-row -mx-3 mb-6">
              <div class="w-full px-3 mb-6 md:mb-0">
-                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
+                 <label
+                 class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-first-name">
                      Sold Item
              </label>
-                 <input class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="sold Item"></input>
+                 <input 
+                    value={sellName}
+                    onChange={inputSellNameHandler}
+                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 mb-3 leading-tight focus:outline-none focus:bg-white" id="grid-first-name" type="text" placeholder="sold Item"></input>
              </div>
              <div class="w-full  px-3">
                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                     Cost Sold
                  </label>
-                 <input 
+                 <input
+                    value={sellAmount}
+                    onChange={inputSellAmountHandler}
                  class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Cost Sold"></input>
              </div>
              <div class="w-full  px-3">
                  <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                  Date
                  </label>
-                 <input 
-                 class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Date"></input>
+                 <DatePicker
+                      selected={sellDate}
+                      onChange={handleSellDateChange}
+                      dateFormat="dd/MM/yyyy"
+                      value={sellDate}
+                   className= "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
+                
+                 />
+                
              </div>
          </div>
         <button class="inline-block rounded-full border-2 border-primary px-6 pt-2 pb-[6px] text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-primary-600 focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10 mt-2 mx-9">
