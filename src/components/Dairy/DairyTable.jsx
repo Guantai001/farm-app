@@ -2,36 +2,35 @@ import React, { useState } from "react";
 import DairyFarming from "./DairyFarming";
 import Swal from 'sweetalert2';
 import DatePicker from 'react-date-picker';
+import moment from "moment";
 
 
 
 
-function DairyTable({ dairy, setDairy}) {
 
-    const successAlert = () => {
-        Swal.fire({
-            position: 'center',
-            icon: 'success',
-            title: 'Your Data has been added',
-            showConfirmButton: false,
-            timer: 1500
-        })
+function DairyTable({ dairy, setDairy, milk, setMilk }) {
 
-    }
+    // const successAlert = () => {
+    //     Swal.fire({
+    //         position: 'center',
+    //         icon: 'success',
+    //         title: { milk},
+    //         showConfirmButton: false,
+    //         timer: 1500
+    //     })
 
-    // const [date , setDate] = useState("");
+    // }
+
     const [kg , setKg] = useState("");
     const [selectedAnimalId, setSelectedAnimalId] = React.useState(dairy.animal_id);
-    const [date, onChange] = useState(new Date());
+    // const [date, onChange] = useState(new Date());
+    const [selectedDate, setSelectedDate] = useState(new Date());
+    const [message, setMessage] = useState("");
 
 
     function handleSelectChange(event) {
       setSelectedAnimalId(event.target.value);
     }
-
-    // const inputDateHandler = (e) => {
-    //     setDate(e.target.value);
-    // };
 
     const inputKgHandler = (e) => {
         setKg(e.target.value);
@@ -40,7 +39,10 @@ function DairyTable({ dairy, setDairy}) {
     const submitHandler = (e) => {
         e.preventDefault();
 
-        if (date === "" || kg === "") {
+        const dateWithoutTime = moment(selectedDate).startOf('day');
+        const formattedDate = dateWithoutTime.format("YYYY-MM-DD");
+
+        if (selectedDate === "" || kg === "") {
             Swal.fire({
                 icon: 'error',
                 title: 'Oops...',
@@ -51,7 +53,7 @@ function DairyTable({ dairy, setDairy}) {
         }
 
         const datat = {
-            milk_date: date,
+            milk_date: formattedDate,
             milk_kgs: kg,
             animal_id: selectedAnimalId
         }
@@ -61,20 +63,35 @@ function DairyTable({ dairy, setDairy}) {
             headers: {
                 'Content-Type': 'application/json'
             },
-            body: JSON.stringify( 
-              datat
-            )
+            body: JSON.stringify(datat)
+            
             
         })
+       
         .then((res) => res.json())
         .then((data) => {
-            console.log(data);
-            successAlert();
+            setMessage(data.message);
+            Swal.fire({
+                position: 'center',
+                title: data.message
+            })
 
+      
+        })
+        .catch((err) => {
+            Swal.fire({
+                position: 'center',
+                icon: 'error',
+                title: 'Oops...',
+                text: 'Something went wrong!',
+            })
         })
         console.log(datat);
     }
    
+    const handleDateChange = (date) => {
+      setSelectedDate(date);
+    };
 
     
 
@@ -122,34 +139,49 @@ function DairyTable({ dairy, setDairy}) {
                 <th
                 scope="col"
                 class="border-r px-6 py-4 dark:border-neutral-500">
-                Cow Milk Per Day
+                 Milk Kgs Per Day
+                </th>
+                <th
+                scope="col"
+                class="border-r px-6 py-4 dark:border-neutral-500">
+                Date
                 </th>
             </tr>
           </thead>
           <tbody>
-            {dairy.map((dairy) => (
+            {milk.map((dairy) => (
               <tr class="border-b dark:border-neutral-500">
                 <td class="px-6 py-4 dark:border-neutral-500">
-                  <img class="h-12 w-12 rounded-full" src={dairy.animal_image} alt="Cow Image"  ></img>
+                  <img class="h-12 w-12 rounded-full" src={dairy.animal.animal_image} alt="Cow Image"  ></img>
                 </td>
                 <td class="px-6 py-4 dark:border-neutral-500">
                   <span class="text-gray-700 dark:text-gray-400">
-                    {dairy.animal_name}
+                    {dairy.animal.animal_name}
                   </span>
                 </td>
                 <td class="px-6 py-4 dark:border-neutral-500">
                   <span class="text-gray-700 dark:text-gray-400">
-                    {dairy.animal_type}
+                    {dairy.animal.animal_type}
                   </span>
                 </td>
                 <td class="px-6 py-4 dark:border-neutral-500">
                   <span class="text-gray-700 dark:text-gray-400">
-                    {dairy.animal_health}
+                    {dairy.animal.animal_health}
                   </span>
                 </td>
                 <td class="px-6 py-4 dark:border-neutral-500">
                   <span class="text-gray-700 dark:text-gray-400">
-                    {dairy.animal_age}
+                    {dairy.animal.animal_age}
+                  </span>
+                </td>
+                <td class="px-6 py-4 dark:border-neutral-500">
+                  <span class="text-gray-700 dark:text-gray-400">
+                    {dairy.milk_kgs}
+                  </span>
+                </td>
+                <td class="px-6 py-4 dark:border-neutral-500">
+                  <span class="text-gray-700 dark:text-gray-400">
+                    {dairy.milk_date}
                   </span>
                 </td>
               </tr>
@@ -205,21 +237,23 @@ function DairyTable({ dairy, setDairy}) {
                 <input 
                 value={kg}
                 onChange={inputKgHandler}
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Milk Per Day"></input>
+                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="number" placeholder="Milk Per Day"></input>
             </div>
             <div class="w-full  px-3">
                 <label class="block uppercase tracking-wide text-gray-700 text-xs font-bold mb-2" for="grid-last-name">
                 Date
                 </label>
                 <DatePicker
+                // take the year, month and day from the date only not the time
+                          
                 className= "appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500"
-                 onChange={onChange} value={date} />
-
                 
-                {/* <input 
-                value={date}
-                onChange={inputDateHandler}
-                class="appearance-none block w-full bg-gray-200 text-gray-700 border border-gray-200 rounded py-3 px-4 leading-tight focus:outline-none focus:bg-white focus:border-gray-500" id="grid-last-name" type="text" placeholder="Milk Per Day"></input> */}
+                 value={selectedDate} 
+                 
+                 selected={selectedDate}
+                 onChange={handleDateChange}
+                 dateFormat="yyyy/MM/dd"
+                 />
             </div>
         </div>
        <button 

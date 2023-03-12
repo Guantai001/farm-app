@@ -1,7 +1,8 @@
 import React from "react";
 import DairyFarming from "./DairyFarming";
 
-function Produce() {
+function Produce({ cost, sell}) {
+
     return (
         <>
         <DairyFarming />
@@ -137,29 +138,24 @@ function Produce() {
                             </tr>
                     </thead>
                     <tbody>
-                        <tr class="border-b dark:border-neutral-500">
-                            <td class="px-6 py-4 dark:border-neutral-500">
-                                January
-                            </td>
-                            <td class="px-6 py-4 dark:border-neutral-500">
-                                Paid wokers
-                            </td>
-                            <td class="px-6 py-4 dark:border-neutral-500">
-                                900
-                            </td>
-                        </tr>
-                        <tr class="border-b dark:border-neutral-500">
-                            <td class="px-6 py-4 dark:border-neutral-500">
-                                February
-                            </td>
-                            <td class="px-6 py-4 dark:border-neutral-500">
-                                Bought Hay
-                            </td>
-                            <td class="px-6 py-4 dark:border-neutral-500">
-                                900
-                            </td>
-                        </tr>
-
+                    
+                    {
+                        cost.map((item, index) => {
+                            return (
+                                <tr class="border-b dark:border-neutral-500">
+                                    <td class="px-6 py-4 dark:border-neutral-500">
+                                        {item.cost_date}
+                                    </td>
+                                    <td class="px-6 py-4 dark:border-neutral-500">
+                                        {item.cost_item}
+                                    </td>
+                                    <td class="px-6 py-4 dark:border-neutral-500">
+                                        {item.cost_price}
+                                    </td>
+                                </tr>
+                            )
+                        })
+                    }
                     </tbody>
                 </table>
 
@@ -205,29 +201,21 @@ function Produce() {
                             </tr>
                     </thead>
                     <tbody>
-                        <tr class="border-b dark:border-neutral-500">
-                            <td class="px-6 py-4 dark:border-neutral-500">
-                                January
-                            </td>
-                            <td class="px-6 py-4 dark:border-neutral-500">
-                                Paid wokers
-                            </td>
-                            <td class="px-6 py-4 dark:border-neutral-500">
-                                900
-                            </td>
-                        </tr>
-                        <tr class="border-b dark:border-neutral-500">
-                            <td class="px-6 py-4 dark:border-neutral-500">
-                                February
-                            </td>
-                            <td class="px-6 py-4 dark:border-neutral-500">
-                                Bought Hay
-                            </td>
-                            <td class="px-6 py-4 dark:border-neutral-500">
-                                900
-                            </td>
-                        </tr>
-
+                  { 
+                    sell.map((item, index) => {
+                        return (
+                            <tr class="border-b dark:border-neutral-500">
+                                <td class="px-6 py-4 dark:border-neutral-500">
+                                    {item.sold_date}
+                                </td>
+                                <td class="px-6 py-4 dark:border-neutral-500">
+                                    {item.sold_item}
+                                </td>
+                                <td class="px-6 py-4 dark:border-neutral-500">
+                                    {item.sold_price}
+                                </td>
+                            </tr>
+                        )})}
                     </tbody>
                 </table>
 
