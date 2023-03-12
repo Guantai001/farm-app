@@ -15,6 +15,7 @@ function Main(){
   const [milk, setMilk] = useState([]);
   const [cost, setCost] = useState([]);
   const [sell, setSell] = useState([]);
+  const [price, setPrice] = useState([]);
 
   // fetching the cow/animal data
   useEffect(() => {
@@ -40,7 +41,6 @@ function Main(){
       .then((res) => res.json())
       .then((data) => {
         setCost(data);
-        console.log(data);
       });
   }, []);
 
@@ -50,20 +50,29 @@ function Main(){
       .then((res) => res.json())
       .then((data) => {
         setSell(data);
-        console.log(data);
       });
   }, []);
 
-
-
-
+// get current price
+ 
+  useEffect(() => {
+    fetch('http://localhost:9292/price')
+      .then((res) => res.json())
+      .then((data) => {
+        setPrice(data);
+        console.log(data);
+      });
+  }, []);
 
 
   return (
 <>
    <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/setting" element={<Settings />} />
+        <Route path="/setting"
+           element={<Settings
+            price={price} setPrice={setPrice}
+            />} />
         <Route path="/inputs" element={<InputTea />} />
         <Route path="/put" element={<InputDairy />} />
         <Route path="/table"
