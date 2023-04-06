@@ -15,7 +15,7 @@ function TeaProduce() {
     <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
       <div class="overflow-hidden">
         <table
-          class="min-w-full border text-center text-sm font-light dark:border-neutral-500">
+          class="min-w-full border text-center text-sm font-light dark:border-neutral-500 ">
           <thead class="border-b font-medium dark:border-neutral-500">
             <tr>
             <th
@@ -49,9 +49,7 @@ function TeaProduce() {
           <tbody>
           <tr class="border-b dark:border-neutral-500">
                 <td class="px-6 py-4 dark:border-neutral-500">
-                <img
-                    class="h-10 w-10 rounded-full"
-                    ></img>
+                <img class="h-10 w-10 rounded-full"></img>
                 </td>
                 <td class="px-6 py-4 dark:border-neutral-500">
                 <span class="text-center">Tea Name</span>
@@ -69,9 +67,7 @@ function TeaProduce() {
             </tr>
             <tr class="border-b dark:border-neutral-500">
                 <td class="px-6 py-4 dark:border-neutral-500">
-                <img
-                    class="h-10 w-10 rounded-full"
-                    ></img>
+                <img class="h-10 w-10 rounded-full"></img>
                 </td>
                 <td class="px-6 py-4 dark:border-neutral-500">
                 <span class="text-center">Tea Name</span>
@@ -84,11 +80,8 @@ function TeaProduce() {
                 </td>
                 <td class="px-6 py-4 dark:border-neutral-500">
                 <span class="text-center">Tea Health</span>
-                </td>
-                
+                </td>           
             </tr>
-          
-
           </tbody>
         </table>
       </div>

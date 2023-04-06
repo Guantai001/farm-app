@@ -157,7 +157,7 @@ function Produce({ cost, sell}) {
         <h3 className="text-2xl text-center mt-9">
             Dairy Table
         </h3>
-      <div class="flex flex-col justify-center mx-9">
+      <div class="flex flex-col text-center mx-9">
     <div class="overflow-x-auto sm:-mx-6 lg:-mx-8 text-center mx-6">
         <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
             <div class="overflow-hidden">
@@ -250,14 +250,14 @@ function Produce({ cost, sell}) {
 
 {/* Utily Table */}
 {/* Row */}
-<div class="flex flex-row -mx-3 mb-6">
+<div class="flex flex-row -mx-3 text-center mb-6">
 
 <div className="text-center">
 <div class="flex flex-col w-full ">
     <h1 class="text-2xl font-semibold text-gray-700 dark:text-gray-200">
         Utility Table
     </h1>
-    <div class="flex  p-8 justify-center">
+    <div class="flex  p-8 text-center">
     <div class="overflow-x-auto sm:-mx-6 lg:-mx-8 text-center mx-6">
         <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
             <div class="overflow-hidden">
@@ -316,7 +316,7 @@ function Produce({ cost, sell}) {
 
 {/*  */}
 <div className="text-center">
-<div class="flex flex-col w-full ">
+<div class="flex flex-col text-center w-full ">
     <h1 class="text-2xl font-semibold text-gray-700 dark:text-gray-200">
         Sells Table
     </h1>
@@ -371,7 +371,6 @@ function Produce({ cost, sell}) {
 
         </div>
         </div>
-
 </div>
 
 </div>

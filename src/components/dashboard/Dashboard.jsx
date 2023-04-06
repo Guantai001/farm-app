@@ -34,13 +34,12 @@ const Dashboard = () => {
 
         <div className="flex w-100% flex-row space-x-4 mt-5 ">
 <div class="overflow-hidden rounded-lg shadow-lg mt-9 mx-9 w-96 h-80">
-  <div
-    class="bg-neutral-50 py-4 px-9 dark:bg-neutral-900 dark:text-neutral-800">
+  <div class="bg-neutral-50 py-4 px-9 dark:bg-neutral-900 dark:text-neutral-800">
     Dairy chart
   </div>
   <Line data={data} />
 </div>
-<div class="overflow-hidden rounded-lg shadow-lg mt-9 w-96 h-80">
+<div class="overflow-hidden rounded-lg shadow-lg mt-9 w-96 h-80 mx-9 ">
   <div
     class="bg-neutral-50 py-4 px-9 dark:bg-neutral-900 dark:text-neutral-800">
     Tea chart

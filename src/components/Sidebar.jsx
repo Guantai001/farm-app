@@ -24,7 +24,7 @@ const Sidebar = () => {
   return (
     <section className="flex gap-6">
       <div
-        className={`bg-[#0e0e0e] min-h-screen ${
+        className={`bg-[#0e0e0e]  min-h-screen ${
           open ? "w-72" : "w-16"
         } duration-500 text-gray-100 px-4`}
       >
@@ -42,7 +42,7 @@ const Sidebar = () => {
               key={i}
               className={` ${
                 menu?.margin && "mt-5"
-              } group flex items-center text-sm  gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
+              } group flex items-center text-2xl my-3 gap-3.5 font-medium p-2 hover:bg-gray-800 rounded-md`}
             >
               <div>{React.createElement(menu?.icon, { size: "20" })}</div>
               <h2

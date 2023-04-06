@@ -8,6 +8,9 @@ import DairyTable from "./Dairy/DairyTable";
 import Produce from "./Dairy/Produce";
 import TeaTable from "./Tea/TeaTable";
 import TeaProduce from "./Tea/TeaProduce";
+import Login from './access/Login';
+import SignUp from './access/SignUp';
+
 
 function Main(){
 
@@ -69,24 +72,15 @@ function Main(){
 <>
    <Routes>
         <Route path="/" element={<Dashboard />} />
-        <Route path="/setting"
-           element={<Settings
-            price={price} setPrice={setPrice}
-            />} />
+        <Route path="/setting"element={<Settings price={price} setPrice={setPrice}/>} />
         <Route path="/inputs" element={<InputTea />} />
         <Route path="/put" element={<InputDairy />} />
-        <Route path="/table"
-          element={<DairyTable 
-          dairy= {dairy} setDairy={setDairy}
-          milk={milk} setMilk={setMilk}
-         />} />
-        <Route path="/produce" 
-        element={<Produce
-        cost={cost} setCost={setCost}
-        sell={sell} setSell={setSell}
-        />} />
+        <Route path="/table"element={<DairyTable dairy= {dairy} setDairy={setDairy}milk={milk} setMilk={setMilk}/>} />
+        <Route path="/produce" element={<Produce cost={cost} setCost={setCost}sell={sell} setSell={setSell}/>} />
         <Route path="/tea" element={<TeaTable/>} />
         <Route path="/teaproduce" element={<TeaProduce/>} />
+        <Route path="/signup" element={<SignUp/>} />
+        <Route path="/login" element={<Login/>} />
 
   </Routes>
 

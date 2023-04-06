@@ -8,7 +8,7 @@ import moment from "moment";
 
 
 
-function DairyTable({ dairy, setDairy, milk, setMilk }) {
+function DairyTable({ dairy, milk,}) {
 
 
     const [kg , setKg] = useState("");

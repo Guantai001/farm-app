@@ -5,7 +5,7 @@ function InputTea() {
     return (
         <>
         <TeaFarming/>
-        <div className="text-center">
+        <div className="text-center ">
                 <h3 className="text-2xl text-center mt-9">
                     Input Tea Farm
                 </h3>

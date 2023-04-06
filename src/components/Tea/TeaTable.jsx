@@ -12,12 +12,12 @@ function TeaTable() {
                     Tea Farm Table
                 </h3>
         {/* table  */}
-        <div class="flex flex-col justify-center mx-9">
+        <div class="flex flex-col text-center ml-9 mx-9">
   <div class="overflow-x-auto sm:-mx-6 lg:-mx-8 text-center mx-6">
     <div class="inline-block min-w-full py-2 sm:px-6 lg:px-8">
       <div class="overflow-hidden">
         <table
-          class="min-w-full border text-center text-sm font-light dark:border-neutral-500">
+          class="min-w-full border text-center text-sm font-light dark:border-neutral-500 ml-11">
           <thead class="border-b font-medium dark:border-neutral-500">
             <tr>
             <th

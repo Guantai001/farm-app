@@ -24,16 +24,11 @@ function DairyFarming(){
             Input Dairy Farm
         </button>
       </Link>
-
-     
     </div>
 
         <div 
-         style={{width: "105%"}}className="w-full h-1 bg-gray-300 rounded-full mt-4">
+         style={{width: "100%"}}className="w-full h-1 bg-gray-300 rounded-full mt-4">
         </div>
-
-
-       
         </>
     )
 
