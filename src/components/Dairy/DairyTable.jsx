@@ -87,7 +87,7 @@ function DairyTable({ dairy, milk,}) {
     return (
       <>
       <DairyFarming/>
-      <div className="text-center">
+      <div className="text-center ml-15">
         <h3 className="text-2xl text-center mt-9">
             Dairy Table
         </h3>

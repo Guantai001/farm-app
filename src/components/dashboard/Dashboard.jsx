@@ -32,7 +32,7 @@ const Dashboard = () => {
         </div>
         <hr className="border-2 border-gray-400 mt-4" />
 
-        <div className="flex w-100% flex-row space-x-4 mt-5 ">
+<div className="flex w-100% flex-row space-x-4 mt-5 ml-11">
 <div class="overflow-hidden rounded-lg shadow-lg mt-9 mx-9 w-96 h-80">
   <div class="bg-neutral-50 py-4 px-9 dark:bg-neutral-900 dark:text-neutral-800">
     Dairy chart

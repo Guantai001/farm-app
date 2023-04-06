@@ -140,7 +140,6 @@ function Produce({ cost, sell}) {
                 text: 'Something went wrong!',
             })
         })
-
         setSellDate("");
         setSellName("");
         setSellAmount("");
@@ -153,7 +152,7 @@ function Produce({ cost, sell}) {
         <>
         <DairyFarming />
 
-   <div className="text-center">
+   <div className="text-center ml-11">
         <h3 className="text-2xl text-center mt-9">
             Dairy Table
         </h3>
@@ -250,9 +249,9 @@ function Produce({ cost, sell}) {
 
 {/* Utily Table */}
 {/* Row */}
-<div class="flex flex-row -mx-3 text-center mb-6">
+<div class="flex flex-row -mx-3 items-center ml-11 mb-6">
 
-<div className="text-center">
+<div className="text-center ml-11">
 <div class="flex flex-col w-full ">
     <h1 class="text-2xl font-semibold text-gray-700 dark:text-gray-200">
         Utility Table

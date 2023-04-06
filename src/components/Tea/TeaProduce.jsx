@@ -6,9 +6,9 @@ function TeaProduce() {
     return (
         <>
         <TeaFarming/>
-        <div className="text-center">
+        <div className="text-center ml-11">
         <h3 className="text-2xl text-center mt-9">
-            Tea Farm Table
+            Tea Produce Table
         </h3>
       <div class="flex flex-col justify-center mx-9">
   <div class="overflow-x-auto sm:-mx-6 lg:-mx-8 text-center mx-6">

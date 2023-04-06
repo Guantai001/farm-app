@@ -26,7 +26,7 @@ function TeaFarming(){
       </Link>
 
     </div>
-     <div style={{width: "100%"}}className="w-96 h-1 bg-gray-300 rounded-full mt-4"> </div>   
+     <div style={{width: "115%"}}className="w-full h-1 bg-gray-300 rounded-full mt-4"> </div>   
    </>
     )
 
