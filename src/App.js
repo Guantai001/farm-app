@@ -7,7 +7,7 @@ function App() {
 return (
 
 <BrowserRouter>
-
+  
     <Sidebar />
 
 </BrowserRouter>

@@ -15,7 +15,7 @@ const Sidebar = () => {
     { name: "Dashboard", link: "/", icon: MdOutlineDashboard },
     { name: "Tea Farming", link: "/tea", icon: GiFarmTractor },
     { name: "Dairy Farming", link: "/table", icon: SiHappycow },
-    { name: "setting", link: "/setting", icon: GiSettingsKnobs }
+    { name: "Account", link: "/setting", icon: GiSettingsKnobs }
 
   
   ];

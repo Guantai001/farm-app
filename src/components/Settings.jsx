@@ -1,4 +1,4 @@
-import React,{useState} from "react";
+import React, { useState } from "react";
 import Swal from "sweetalert2";
 
 function Settings({ price, setPrice }) {
@@ -39,7 +39,7 @@ function Settings({ price, setPrice }) {
                     position: 'center',
                     icon: 'success',
                     title: data.message,
-                    
+
                 })
             })
             .catch((err) => {
@@ -48,7 +48,7 @@ function Settings({ price, setPrice }) {
                     position: 'center',
                     icon: 'error',
                     title: err.message,
-                 
+
                 })
             })
     }
@@ -66,88 +66,125 @@ function Settings({ price, setPrice }) {
 
     return (
         <>
-            {/* simple setting that you are able to input milk  price  */}
-
-            <div className="flex flex-row space-x-4 mt-5 ">
-                <div className="flex flex-col ">
-                    <h1 className="text-4xl font-bold">Settings</h1>
-                    <p className="text-gray-500 mx-5">Set your price</p>
-                </div>
+            <h1 className="text-3xl text-start font-bold mt-5">My Profile</h1>
+            <div className=" h-1 bg-gray-300 rounded-full mt-4">
             </div>
-            <hr className="border-2 border-gray-400 mt-4" />
-            {/* row */}
-
-
-            <div className="flex flex-row space-x-4 mt-5 ">
-                <form
-                    onSubmit={submitHandler}
-                 className="flex flex-row space-x-4 mt-5 ">
-                    <div className="flex flex-row space-x-4 mt-5 ">
-                        <div className="flex flex-col ">
-                            <h1 className="text-4xl font-bold">Milk Price</h1>
-                            <p className="text-gray-500 mx-5">Set your milk price</p>
-                            <input 
-                            value={milkPrice}
-                            onChange={inputPriceHandler}
-                            type="text" placeholder="Milk Price" className="border-2 border-gray-400 rounded-lg w-96 h-10 mt-5"></input>
-                            <button 
-                            type="submit"
-                            class="inline-block rounded-full border-2 border-primary px-6 pt-2 pb-[6px] text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-primary-600 focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10 mt-5">
-                                Submit
-                            </button>
-                        </div>
-                    </div>
-                </form>
-
-                {/* get the current and a delete button for current price */}
-                <div className="flex flex-row space-x-4 mt-9 ">
-                    <div className="flex flex-col ">
-                        <h1 className="text-4xl font-bold">Current Milk Price</h1>
-                        {price.map((pricing) => (
-                            <div className="flex flex-row space-x-4 mt-5 ">
-                                <div className="flex flex-col ">
-                                    <p className="text-gray-500 mx-5">Current Milk Price: {pricing.price_item}</p>
-                                </div>
-
-
-
-                                <button
-                                
-                                    onClick={() => deletePrice(pricing.id)}
-                                    class="inline-block rounded-full border-2 border-primary px-6 pt-2 pb-[6px] text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-primary-600 focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10 mt-5">
-                                    Delete
-                                </button>
+            <div className="flex flex-col  h-screen w-screen bg-white ">
+                <div className="flex flex-col ml-11 mt-2  bg-white h-full rounded-lg shadow-2xl w-2/3">
+                    <div className="flex flex-col mt-9">
+                        {/* image */}
+                        <div className="flex flex-col items-center ">
+                            <div className="items-center">
+                                <img class="h-20 w-20 text-center rounded-full mb-5"></img>
                             </div>
-                        ))}
+                            {/* input of the first and second name and they should be in a row */}
+                            <form className="flex flex-col items-center">
+                                <div className="flex flex-row mt-4">
+                                    <div className="flex flex-col mr-4">
+                                        <input className="border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-gray-800" type="text" placeholder="First Name"></input>
+                                    </div>
+                                    <div className="flex flex-col">
+                                        <input className="border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-gray-800" type="text" placeholder="Last Name"></input>
+                                    </div>
+                                </div>
+                                {/* input of the email */}
+                                <div className="flex flex-row mt-4">
+                                    <div className="flex flex-col mr-4">
+                                        <input className="border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-gray-800" type="email" placeholder="Email"></input>
+                                    </div>
+                                    {/* input of the password */}
+                                    <div className="flex flex-col  ">
+                                        <input className="border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-gray-800" type="text" placeholder="Phone Number"></input>
+
+                                    </div>
+                                </div>
+                                {/* input of the confirm password */}
+                                <div className="flex flex-row mt-4">
+                                    <div className="flex flex-col mr-4">
+                                        <input className="border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-gray-800" type="password" placeholder="Password"></input>
+
+                                    </div>
+                                    {/* input of the phone number */}
+                                    <div className="flex flex-col ">
+                                        <input className="border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-gray-800" type="password" placeholder="Confirm Password"></input>
+                                    </div>
+                                </div>
+                                {/* BUTTON */}
+                                <div className="flex flex-col mt-4">
+                                    <button className="bg-gray-800 text-white p-2 rounded-lg w-40">Save</button>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                    <div className="flex flex-col mt-4 items-center ">
+                        < div className="flex flex-row ">
+                            <div className="flex flex-col mt-4 items-center ">
+                                <div className="flex flex-col">
+                                    <h1 className="text-gray-500  ">Current Tea Price: { }</h1>
+                                </div>
+                                <div className="flex flex-row mr-4 mt-4">
+                                    <div className="flex flex-row mr-4">
+                                        <input className="border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-gray-800 h-10 mx-4 w-20" type="number" placeholder="Price"></input>
+                                        <button className="bg-gray-800 text-white p-2 rounded-lg w-20 ">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col mt-4 items-center ">
+                                <div className="flex flex-col">
+                                    <h1 className="text-gray-500  ">Current Milk Price: { }</h1>
+                                </div>
+                                <div className="flex flex-row mr-4 mt-4">
+                                    <div className="flex flex-row mr-4">
+                                        <input className="border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-gray-800 h-10 mx-4 w-20" type="number" placeholder="Price"></input>
+                                        <button className="bg-gray-800 text-white p-2 rounded-lg w-20 ">Save</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+
+                    </div>
+                    {/* delete farm and animal */}
+                    <div className="flex flex-col mt-4 items-center ">
+                        < div className="flex flex-row ">
+                            <div className="flex flex-col mt-4 items-center ">
+                                <div className="flex flex-col">
+                                    <h1 className="text-gray-500  ">Delete Tea Farm</h1>
+                                </div>
+                                <div className="flex flex-row mr-4 mt-4">
+                                    <div className="flex flex-row mr-4">
+                                        <select className="border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-gray-800 h-10 mx-4 w-20" type="text" placeholder="Farm">
+                                            <option value="Farm">Farm</option>
+                                            <option value="Farm">Farm</option>
+                                            <option value="Farm">Farm</option>
+                                            <option value="Farm">Farm</option>
+                                        </select>
+                                        <button className="bg-gray-800 text-white p-2 rounded-lg w-20 ">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+
+                            <div className="flex flex-col mt-4 items-center ">
+                                <div className="flex flex-col">
+                                    <h1 className="text-gray-500  ">Delete Cow</h1>
+                                </div>
+                                <div className="flex flex-row mr-4 mt-4">
+                                    <div className="flex flex-row mr-4">
+                                        <select className="border-2 border-gray-300 p-2 rounded-lg focus:outline-none focus:border-gray-800 h-10 mx-4 w-20" type="text" placeholder="Farm">
+                                            <option value="Farm">Cow 1</option>
+                                            <option value="Farm">Cow 2</option>
+                                            <option value="Farm">Cow 3</option>
+                                            <option value="Farm">Cow 4</option>
+                                        </select>
+                                        <button className="bg-gray-800 text-white p-2 rounded-lg w-20 ">Delete</button>
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
                     </div>
                 </div>
             </div>
 
-            <hr className="border-2 border-gray-400 mt-4" />
-            {/* row */}
-            <div className="flex flex-row space-x-4 mt-5 ">
-                <form className="flex flex-row space-x-4 mt-5 ">
-                    <div className="flex flex-row space-x-4 mt-5 ">
-                        <div className="flex flex-col ">
-                            <h1 className="text-4xl font-bold">Tea Price</h1>
-                            <p className="text-gray-500 mx-5">Set your tea price</p>
-                            <input type="text" placeholder="Tea Price" className="border-2 border-gray-400 rounded-lg w-96 h-10 mt-5"></input>
-                            <button class="inline-block rounded-full border-2 border-primary px-6 pt-2 pb-[6px] text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-primary-600 focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10 mt-5">
-                                Submit
-                            </button>
-                        </div>
-                    </div>
-                </form>
-                <div className="flex flex-row space-x-4 mt-9 ">
-                    <div className="flex flex-col ">
-                        <h1 className="text-4xl font-bold">Current Milk Price</h1>
-                        <p className="text-gray-500 mx-5">Current Milk Price</p>
-                        <button class="inline-block rounded-full border-2 border-primary px-6 pt-2 pb-[6px] text-xs font-medium uppercase leading-normal text-primary transition duration-150 ease-in-out hover:border-primary-600 hover:bg-neutral-500 hover:bg-opacity-10 hover:text-primary-600 focus:border-primary-600 focus:text-primary-600 focus:outline-none focus:ring-0 active:border-primary-700 active:text-primary-700 dark:hover:bg-neutral-100 dark:hover:bg-opacity-10 mt-5">
-                            Delete Price
-                        </button>
-                    </div>
-                </div>
-            </div>
         </>
     )
 

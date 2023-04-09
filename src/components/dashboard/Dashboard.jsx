@@ -46,9 +46,7 @@ const Dashboard = () => {
   </div>
   <Line data={data} />
 </div> 
-        </div>
-
-
+</div>
         </>
 
     );

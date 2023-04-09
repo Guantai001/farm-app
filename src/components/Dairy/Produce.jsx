@@ -49,7 +49,7 @@ function Produce({ cost, sell}) {
             cost_price: costAmount
         }
 
-        fetch('http://localhost:9292/cost/', {
+        fetch('/cost', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'
@@ -117,7 +117,7 @@ function Produce({ cost, sell}) {
             sold_price: sellAmount
         }
 
-        fetch('http://localhost:9292/sell/', {
+        fetch('/sell', {
             method: 'POST',
             headers: {
                 'Content-Type': 'application/json'

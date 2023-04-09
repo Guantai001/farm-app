@@ -22,7 +22,7 @@ function Main(){
 
   // fetching the cow/animal data
   useEffect(() => {
-    fetch('http://localhost:9292/')
+    fetch('/animals')
       .then((res) => res.json())
       .then((data) => {
         setDairy(data);
@@ -31,7 +31,7 @@ function Main(){
 
   // fetching the milk data
   useEffect(() => {
-    fetch('http://localhost:9292/milk')
+    fetch('/milks')
       .then((res) => res.json())
       .then((data) => {
         setMilk(data);
@@ -40,7 +40,7 @@ function Main(){
 
   // fetching the cost data
   useEffect(() => {
-    fetch('http://localhost:9292/cost')
+    fetch('/costs')
       .then((res) => res.json())
       .then((data) => {
         setCost(data);
@@ -49,23 +49,23 @@ function Main(){
 
   // fetching the sell data
   useEffect(() => {
-    fetch('http://localhost:9292/sell')
+    fetch('/sells')
       .then((res) => res.json())
       .then((data) => {
         setSell(data);
       });
   }, []);
 
-// get current price
+// // get current price
  
-  useEffect(() => {
-    fetch('http://localhost:9292/price')
-      .then((res) => res.json())
-      .then((data) => {
-        setPrice(data);
-        console.log(data);
-      });
-  }, []);
+//   useEffect(() => {
+//     fetch('/prices')
+//       .then((res) => res.json())
+//       .then((data) => {
+//         setPrice(data);
+//         console.log(data);
+//       });
+//   }, []);
 
 
   return (
